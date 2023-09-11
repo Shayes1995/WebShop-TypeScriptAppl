@@ -1,0 +1,13 @@
+.addproductform {
+  padding: 2rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.input-product {
+  height: 1.5rem;
+}
