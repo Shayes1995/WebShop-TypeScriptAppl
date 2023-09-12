@@ -1,16 +1,18 @@
 import './Addproductform.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addAsyncProduct } from '../../storage/slices/productSlice';
-import { Items } from '../../types';
 import { AppDispatch } from '../../storage/store';
+import { addAsyncProduct } from '../../storage/slices/productSlice';
+
+
 
 const AddProductForm = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [productName, setProductName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const [cathegory, setCathegory] = useState<Cathegory>('')
   const [imgURLone, setImgURLone] = useState('');
   const [imgURLtwo, setImgURLtwo] = useState('');
   const [imgURLthree, setImgURLthree] = useState('');
@@ -25,10 +27,12 @@ const AddProductForm = () => {
       productName,
       description,
       price: parseFloat(price),
+      cathegory: cathegory,
       ImgURLone: imgURLone,
-      ImgURtwo: imgURLtwo,
-      ImgURthree: imgURLthree,
+      ImgURLtwo: imgURLtwo,
+      ImgURLthree: imgURLthree,
     };
+
 
     try {
       await dispatch(addAsyncProduct(newProduct));
@@ -66,11 +70,28 @@ const AddProductForm = () => {
           <input
             id="product-price"
             className='input-product'
-            type="text"
+            type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
+        <div className="input-group">
+          <label htmlFor="product-category">Category</label>
+          <select
+            id="product-category"
+            className='input-product'
+            value={cathegory}
+            onChange={(e) => setCathegory(e.target.value as Cathegory)}
+          >
+            <option value="">Select a category</option>
+            <option value="Sweater">Sweater</option>
+            <option value="Jacket">Jacket</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Jeans">Jeans</option>
+            <option value="Accessories">Accessories</option>
+          </select>
+        </div>
+
 
         <div className="input-group">
           <label htmlFor="product-img-url-1">IMG URL 1</label>
@@ -113,3 +134,5 @@ const AddProductForm = () => {
 }
 
 export default AddProductForm
+
+
