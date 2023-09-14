@@ -3,11 +3,12 @@ import { addItem, fetchProducts, fetchProductDetails } from '../../storage/servi
 
 
 interface ProductState {
-  productList: Items[];
-  productDetails: Items | null;  
+  productList: ExtendedItems[];
+  productDetails: ExtendedItems | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
+
 
 const initialState: ProductState = {
   productList: [],
@@ -18,10 +19,11 @@ const initialState: ProductState = {
 
 
 
-export const addAsyncProduct = createAsyncThunk('product/addAsyncProduct', async (newProduct: Items) => {
+export const addAsyncProduct = createAsyncThunk('product/addAsyncProduct', async (newProduct: ExtendedItems) => {
   const response = await addItem(newProduct);
   return response;
 });
+
 
 export const fetchAsyncProducts = createAsyncThunk('product/fetchAsyncProducts', async () => {
   const response = await fetchProducts();

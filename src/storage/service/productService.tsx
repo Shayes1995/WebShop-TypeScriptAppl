@@ -1,8 +1,9 @@
 import { db } from "../../firebaseSetup/config";
-import { collection, deleteDoc, doc, setDoc, getDoc, getDocs, updateDoc, query, where } from "firebase/firestore";
+import { collection, doc, setDoc, getDoc, getDocs} from "firebase/firestore";
 
 
-export async function addItem(items: Items): Promise<Items> {
+
+export async function addItem(items: ExtendedItems): Promise<ExtendedItems> {
   try {
     const itemsRef = doc(db, "items", items.id.toString());
     await setDoc(itemsRef, items);
@@ -14,11 +15,11 @@ export async function addItem(items: Items): Promise<Items> {
   }
 }
 
-export const fetchProducts = async () => {
+export const fetchProducts = async (): Promise<ExtendedItems[]> => {
   try {
     const productsRef = collection(db, "items");
     const productsSnapshot = await getDocs(productsRef);
-    const productsList = productsSnapshot.docs.map((doc) => doc.data() as Items);
+    const productsList = productsSnapshot.docs.map((doc) => doc.data() as ExtendedItems);
     return productsList;
   } catch (error) {
     console.error("Fel vid hämtning av products:", error);
@@ -26,13 +27,12 @@ export const fetchProducts = async () => {
   }
 }
 
-
-export const fetchProductDetails = async (productId: string): Promise<Items> => {
+export const fetchProductDetails = async (productId: string): Promise<ExtendedItems> => {
   try {
     const productRef = doc(db, "items", productId);
     const productSnapshot = await getDoc(productRef);
     if (productSnapshot.exists()) {
-      return productSnapshot.data() as Items;
+      return productSnapshot.data() as ExtendedItems;
     } else {
       throw new Error("Product not found");
     }
@@ -41,6 +41,7 @@ export const fetchProductDetails = async (productId: string): Promise<Items> => 
     throw error;
   }
 };
+
 
 
 const productService = {

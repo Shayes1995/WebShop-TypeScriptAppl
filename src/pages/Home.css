@@ -1,0 +1,24 @@
+.home-container {
+  text-align: center;
+
+}
+
+.background-home {
+  background-image: url('../img/homepage.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 30rem;
+}
+
+.home-container h1 {
+  font-size: 5rem;
+}
+
+.home-button {
+  background-color: black;
+  color: white;
+  padding: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

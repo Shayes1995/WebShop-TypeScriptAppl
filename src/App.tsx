@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import AddProduct from "./pages/AddProduct"
+import Checkout from "./pages/Checkout"
 import Home from "./pages/Home"
 import Productdetails from "./pages/Productdetails"
 import Products from "./pages/Products"
@@ -18,16 +19,20 @@ const App = () => {
           element: <Home />
         },
         {
-          path: 'add-product',
-          element: <AddProduct />
-        },
-        {
           path: 'products',
           element: <Products />
         },
         {
           path: 'products/:cathegory/:id',
           element: <Productdetails/>
+        },
+        {
+          path: 'add-product',
+          element: <AddProduct />
+        },
+        {
+          path: 'checkout',
+          element: <Checkout/>
         }
       ]
     }

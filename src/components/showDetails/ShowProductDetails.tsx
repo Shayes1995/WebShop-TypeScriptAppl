@@ -1,51 +1,52 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAsyncProductDetails } from '../../storage/slices/productSlice';
-import { AppDispatch, RootState } from '../../storage/store';
-import './ShowProductDetails.css'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../../storage/slices/cartSlice';
+import { AppDispatch } from '../../storage/store';
+import './ShowProductDetails.css';
 
-const ShowProductDetails = () => {
-  const { id } = useParams();
+interface ShowProductDetailsProps {
+  product: ExtendedItems;
+}
+
+const ShowProductDetails: React.FC<ShowProductDetailsProps> = ({ product }) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchAsyncProductDetails(id));
-    }
-  }, [id, dispatch]);
-
-  const productDetails = useSelector((state: RootState) => state.products.productDetails);
-  const status = useSelector((state: RootState) => state.products.status);
-  const error = useSelector((state: RootState) => state.products.error);
-
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
-
-  if (status === 'failed') {
-    return <div>Error: {error}</div>;
-  }
+  const handleAddToCart = () => {
+    dispatch(
+      addItemToCart({
+        id: product.id,
+        productName: product.productName,
+        price: product.price,
+        ImgURLone: product.ImgURLone,
+        quantity: 1,
+      })
+    );
+  };
 
   return (
     <div className="productContainer">
-      {productDetails && (
+      {product && (
         <>
           <div className="imageContainer">
-            <img src={productDetails.ImgURLone} alt={`${productDetails.productName}`} className="productImage" />
-            <img src={productDetails.ImgURLtwo} alt={`${productDetails.productName}`} className="productImage" />
-            <img src={productDetails.ImgURLthree} alt={`${productDetails.productName} `} className="productImage" />
+            <img src={product.ImgURLone} alt={`${product.productName}`} className="productImage" />
+            <img src={product.ImgURLtwo} alt={`${product.productName}`} className="productImage" />
+            <img src={product.ImgURLthree} alt={`${product.productName}`} className="productImage" />
           </div>
           <div className="productDetails">
-            <h2 className="productName">{productDetails.productName}</h2>
-            <p className="productDescription">{productDetails.description}</p>
-            <p className="productPrice">{productDetails.price} SEK</p>
+            <h2 className="productName">{product.productName}</h2>
+            <p className="productDescription">{product.description}</p>
+            <p className="productBrand">Brand: {product.brand}</p> 
+            <p className="productCollectionYear">Collection Year: {product.collectionYear}</p> 
+            <p className="productPrice">{product.price} SEK</p>
+            <button onClick={handleAddToCart}>Add to Cart</button>
           </div>
         </>
       )}
     </div>
   );
-
 };
 
 export default ShowProductDetails;
+
+
+

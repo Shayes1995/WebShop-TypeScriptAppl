@@ -1,6 +1,6 @@
 .navbar {
   background-color: #333;
-  height: 4rem;
+  height: 5rem;
   padding: 0 2rem;
   display: flex;
   align-items: center;
@@ -30,4 +30,31 @@
 
 .nav-link:hover {
   color: #ffffff;
+}
+
+.icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+}
+
+.cart-item-count {
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  padding: 0.4em;
+  font-size: 0.8em;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  text-align: center;
 }

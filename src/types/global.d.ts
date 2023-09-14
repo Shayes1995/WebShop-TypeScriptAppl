@@ -9,3 +9,27 @@ declare interface Items {
   ImgURLthree: string;
 }
 
+declare interface ExtendedItems extends Items {
+  brand: string;
+  collectionYear: number;
+}
+
+
+declare interface CartItem {
+  id: string;
+  productName: string;
+  price: number;
+  quantity: number;
+  ImgURLone: string;
+}
+
+declare interface Order {
+  id: string;
+  orders: CartItem[];
+  total: number;
+  createdAt: string;
+}
+
+
+
+
