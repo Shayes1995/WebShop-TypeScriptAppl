@@ -56,6 +56,17 @@ const AddProductForm: React.FC = () => {
     if (isExtendedItems(newProduct)) {
       try {
         await dispatch(addAsyncProduct(newProduct));
+
+        //clearing the form on submit if the product is added successfully
+        setProductName('');
+        setDescription('');
+        setPrice('');
+        setCathegory('');
+        setImgURLone('');
+        setImgURLtwo('');
+        setImgURLthree('');
+        setBrand('');
+        setCollectionYear('');
         console.log('Product added successfully!', newProduct);
       } catch (error) {
         console.log("An error occurred:", error);
