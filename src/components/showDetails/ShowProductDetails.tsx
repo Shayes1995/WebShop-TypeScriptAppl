@@ -44,6 +44,7 @@ const ShowProductDetails: React.FC<ShowProductDetailsProps> = ({ product }) => {
             <p className="productDescription">{product.description}</p>
             <p className="productBrand">Brand: {product.brand}</p> 
             <p className="productCollectionYear">Collection Year: {product.collectionYear}</p> 
+            <p className="productCollectionYear">Article number: {product.id}</p> 
             <p className="productPrice">{product.price} SEK</p>
             <button onClick={handleAddToCart}>Add to Cart</button>
           </div>
