@@ -1,34 +1,17 @@
-declare interface Items {
-  id: string;
-  productName: string;
-  description: string;
-  price: number;
-  cathegory: Cathegory;
-  ImgURLone: string;
-  ImgURLtwo: string;
-  ImgURLthree: string;
+
+//showproductsprops and showproductdetailsprops are used in the showproducts and showproductdetails components
+//used to define the types of the props that are passed to the components
+declare interface ShowproductsProps {
+  products: ExtendedItems[];
 }
 
-declare interface ExtendedItems extends Items {
-  brand: string;
-  collectionYear: number;
+declare interface ShowProductDetailsProps {
+  product: ExtendedItems;
 }
 
 
-declare interface CartItem {
-  id: string;
-  productName: string;
-  price: number;
-  quantity: number;
-  ImgURLone: string;
-}
 
-declare interface Order {
-  id: string;
-  orders: CartItem[];
-  total: number;
-  createdAt: string;
-}
+
 
 
 

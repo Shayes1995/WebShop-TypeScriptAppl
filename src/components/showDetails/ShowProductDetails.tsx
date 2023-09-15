@@ -1,27 +1,34 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../../storage/slices/cartSlice';
 import { AppDispatch } from '../../storage/store';
+import { isValidProductDetails } from '../../typeGuards/typeGuards';
 import './ShowProductDetails.css';
 
-interface ShowProductDetailsProps {
-  product: ExtendedItems;
-}
-
+//showproductdetails is a component that shows the details of a product
 const ShowProductDetails: React.FC<ShowProductDetailsProps> = ({ product }) => {
   const dispatch = useDispatch<AppDispatch>();
 
+  //handleAddToCart is a function that adds a product to the cart
   const handleAddToCart = () => {
-    dispatch(
-      addItemToCart({
-        id: product.id,
-        productName: product.productName,
-        price: product.price,
-        ImgURLone: product.ImgURLone,
-        quantity: 1,
-      })
-    );
+    //isValidProductDetails is a type guard that checks if the product details are valid
+    if (isValidProductDetails(product)) {
+      console.log("Product details passed the type guard check, adding to cart...");
+      //dispatchin addItemToCart so that the product is added to the cart in the redux store
+      dispatch(
+        addItemToCart({
+          id: product.id,
+          productName: product.productName,
+          price: product.price,
+          ImgURLone: product.ImgURLone,
+          quantity: 1,
+        })
+      );
+    } else {
+      console.log("Invalid product details object, failed the type guard check.");
+      console.log("Product object: ", product); // log the product object 
+    }
   };
+
 
   return (
     <div className="productContainer">

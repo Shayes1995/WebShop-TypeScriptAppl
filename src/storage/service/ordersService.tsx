@@ -2,6 +2,8 @@ import { db } from "../../firebaseSetup/config";
 import { doc, setDoc } from "firebase/firestore";
 
 
+//this function adds the order to our collection in firebase
+//the return type is a promise of type order
 export async function addOrder(order: Order): Promise<Order> {
   try {
     const orderRef = doc(db, "orders", order.id.toString());
@@ -14,7 +16,7 @@ export async function addOrder(order: Order): Promise<Order> {
   }
 }
 
-
+//this is the order service that we export
 const orderService = {
   addOrder
 }

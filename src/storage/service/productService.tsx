@@ -2,7 +2,8 @@ import { db } from "../../firebaseSetup/config";
 import { collection, doc, setDoc, getDoc, getDocs} from "firebase/firestore";
 
 
-
+//this function adds the product to our collection called items in firebase
+//the return type is a promise of type ExtendedItems from our type extensions 
 export async function addItem(items: ExtendedItems): Promise<ExtendedItems> {
   try {
     const itemsRef = doc(db, "items", items.id.toString());
@@ -15,6 +16,8 @@ export async function addItem(items: ExtendedItems): Promise<ExtendedItems> {
   }
 }
 
+//this function fetches all products from our collection called items in firebase
+//the return type is a promise of type ExtendedItems from our type extensions
 export const fetchProducts = async (): Promise<ExtendedItems[]> => {
   try {
     const productsRef = collection(db, "items");
@@ -27,6 +30,8 @@ export const fetchProducts = async (): Promise<ExtendedItems[]> => {
   }
 }
 
+//this function fetches a specific product from our collection called items in firebase with the help of the product id
+//the return type is a promise of type ExtendedItems from our type extensions
 export const fetchProductDetails = async (productId: string): Promise<ExtendedItems> => {
   try {
     const productRef = doc(db, "items", productId);
@@ -43,7 +48,7 @@ export const fetchProductDetails = async (productId: string): Promise<ExtendedIt
 };
 
 
-
+//this is the product service that we export
 const productService = {
   addItem,
   fetchProducts,

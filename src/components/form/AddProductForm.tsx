@@ -3,46 +3,65 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../storage/store';
 import { addAsyncProduct } from '../../storage/slices/productSlice';
+import { isExtendedItems } from '../../typeGuards/typeGuards';
 
 
 
+
+// addproductform is a form for adding new products to the webshop
 const AddProductForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const [productName, setProductName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [cathegory, setCathegory] = useState<Cathegory>('')
-  const [imgURLone, setImgURLone] = useState('');
-  const [imgURLtwo, setImgURLtwo] = useState('');
-  const [imgURLthree, setImgURLthree] = useState('');
-  const [brand, setBrand] = useState(''); 
-  const [collectionYear, setCollectionYear] = useState(''); 
+  // useState with explicit types
+  const [productName, setProductName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [price, setPrice] = useState<string>('');
+  const [cathegory, setCathegory] = useState<Cathegory>('');
+  const [imgURLone, setImgURLone] = useState<string>('');
+  const [imgURLtwo, setImgURLtwo] = useState<string>('');
+  const [imgURLthree, setImgURLthree] = useState<string>('');
+  const [brand, setBrand] = useState<string>('');
+  const [collectionYear, setCollectionYear] = useState<string>('');
 
+  // basic validation without regex
+  const isFormValid = () => {
+    return !(!productName || !description || !price || !cathegory || !imgURLone || !imgURLtwo || !imgURLthree || !brand || !collectionYear);
+  };
 
-  // handle submit is handling the form submit event
+  //handleSubmit is a function that handles the submit event of the form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    //isFormValid is a function that checks if the form is valid
+    if (!isFormValid()) {
+      console.log('Please fill in all fields.');
+      return;
+    }
 
     const id = Date.now().toString();
 
+    //newProduct is using interface ExtendedItems to create a new product
     const newProduct: ExtendedItems = {
       id,
       productName,
       description,
       price: parseFloat(price),
-      cathegory: cathegory,
+      cathegory,
       ImgURLone: imgURLone,
       ImgURLtwo: imgURLtwo,
       ImgURLthree: imgURLthree,
       brand,
-      collectionYear: parseInt(collectionYear), // parsing to a number
+      collectionYear: parseInt(collectionYear, 10),
     };
-
-    try {
-      await dispatch(addAsyncProduct(newProduct));
-    } catch (error) {
-      console.error("An error occurred:", error);
+    //isExtendedItems is a type guard that checks if the newProduct is of type ExtendedItems
+    if (isExtendedItems(newProduct)) {
+      try {
+        await dispatch(addAsyncProduct(newProduct));
+        console.log('Product added successfully!', newProduct);
+      } catch (error) {
+        console.log("An error occurred:", error);
+      }
+    } else {
+      console.log('Something went wrong.');
     }
   };
 
@@ -103,7 +122,7 @@ const AddProductForm: React.FC = () => {
 
         <div className="input-group">
           <label htmlFor="collection-year">Collection Year</label>
-          <input id="collection-year" className='input-product' type="number" value={collectionYear} onChange={(e) => setCollectionYear(e.target.value)} />
+          <input id="collection-year" step="1" className='input-product' type="number" value={collectionYear} onChange={(e) => setCollectionYear(e.target.value)} />
         </div>
 
         <button type="submit">Add Product</button>

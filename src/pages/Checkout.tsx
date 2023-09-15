@@ -1,7 +1,7 @@
-import React from 'react'
+
 import Cart from '../components/cart/Cart'
 
-const Checkout = () => {
+const Checkout: React.FC = () => {
   return (
     <div>
       <Cart />

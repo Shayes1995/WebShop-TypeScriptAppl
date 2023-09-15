@@ -9,11 +9,13 @@ const initialState: OrdersState = {
   orders: [],
 };
 
+// this is the async thunk for adding an order
 export const addOrderAsync = createAsyncThunk('orders/addOrderAsync', async (order: Order) => {
   const addedOrder = await addOrderService(order);
   return addedOrder;
 });
 
+//orderSlice contains 1 reducer for adding an order
 const ordersSlice = createSlice({
   name: 'orders',
   initialState,

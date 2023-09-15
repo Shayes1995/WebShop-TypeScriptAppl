@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { fetchAsyncProductDetails } from '../storage/slices/productSlice'
 import { RootState, AppDispatch } from '../storage/store';
 import ShowProductDetails from '../components/showDetails/ShowProductDetails';
+import Loader from '../components/loader/Loader';
 
 const Productdetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,7 +19,7 @@ const Productdetails: React.FC = () => {
   }, [id, dispatch]);
 
   if (status === 'loading') {
-    return <div>Loading...</div>;
+    return <div><Loader /></div>;
   }
 
   if (status === 'failed') {

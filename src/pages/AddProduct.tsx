@@ -1,7 +1,7 @@
-import React from 'react'
+
 import AddProductForm from '../components/form/AddProductForm'
 
-const AddProduct = () => {
+const AddProduct: React.FC = () => {
   return (
     <div>
       <AddProductForm />

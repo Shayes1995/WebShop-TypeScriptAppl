@@ -3,11 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../storage/store';
 import './navbar.css'
-
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
-const Navbar = () => {
+//this is the navbar component thats universal for all pages as rootlayout is the parent component
+const Navbar: React.FC = () => {
+
   const cartItems = useSelector((state: RootState) => state.cart.items);
+
+  //cartItemCount is the total number of items in the cart displayed in the navbar
   const cartItemCount = cartItems.reduce((count, item) => count + item.quantity, 0);
 
 

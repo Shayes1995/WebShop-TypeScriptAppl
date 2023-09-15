@@ -18,23 +18,27 @@ const initialState: ProductState = {
 };
 
 
-
+//this is the async thunk for adding a product 
 export const addAsyncProduct = createAsyncThunk('product/addAsyncProduct', async (newProduct: ExtendedItems) => {
   const response = await addItem(newProduct);
   return response;
 });
 
-
+// this is the async thunk for fetching all products
 export const fetchAsyncProducts = createAsyncThunk('product/fetchAsyncProducts', async () => {
   const response = await fetchProducts();
   return response;
 });
 
+//this is the async thunk for fetching a specific product by id
 export const fetchAsyncProductDetails = createAsyncThunk('product/fetchAsyncProductDetails', async (productId: string) => {
   const response = await fetchProductDetails(productId);
   return response;
 });
 
+//productSlice contains 3 reducers for adding a product, fetching all products and fetching a specific product by id
+// it contains different states for the status of the async thunks
+//loader is currently the only one with styling in loader component
 const productSlice = createSlice({
   name: 'product',
   initialState,
